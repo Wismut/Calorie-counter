@@ -29,4 +29,24 @@ public class MockUserMealRepository implements UserMealRepository {
 		LOG.info("getFromDateToDate " + from + " " + to);
 		return null;
 	}
+
+	@Override
+	public UserMeal get(int id, int userId) {
+		return null;
+	}
+
+	@Override
+	public void delete(int id, int userId) {
+
+	}
+
+	@Override
+	public List<UserMeal> getAll(int userId) {
+		return null;
+	}
+
+	@Override
+	public void deleteAll(int userId) {
+
+	}
 }
