@@ -31,7 +31,7 @@ public class AdminUserRestController {
 	}
 
 	public User create(final User user) {
-		LOG.info("create user", user);
+		LOG.info("save user", user);
 		return service.save(user);
 	}
 
