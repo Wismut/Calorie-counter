@@ -18,6 +18,7 @@
         <spring.version>4.1.4.RELEASE</spring.version>
         <junit.version>4.12</junit.version>
         <slf4g.version>1.7.7</slf4g.version>
+        <postgres.version>42.2.6</postgres.version>
     </properties>
 
     <build>
@@ -88,6 +89,18 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgres.version}</version>
+        </dependency>
     </dependencies>
 
     <profiles>
