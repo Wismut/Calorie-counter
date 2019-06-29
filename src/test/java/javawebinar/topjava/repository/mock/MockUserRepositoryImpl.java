@@ -5,11 +5,23 @@ import javawebinar.topjava.LoggerWrapper;
 import javawebinar.topjava.model.User;
 import javawebinar.topjava.repository.UserRepository;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.List;
 
 @Repository
-public class MockUserRepository implements UserRepository {
-	private static final LoggerWrapper LOG = LoggerWrapper.get(MockUserRepository.class);
+public class MockUserRepositoryImpl implements UserRepository {
+	private static final LoggerWrapper LOG = LoggerWrapper.get(MockUserRepositoryImpl.class);
+
+	@PostConstruct
+	public void postConstruct() {
+		LOG.info("postConstruct");
+	}
+
+	@PreDestroy
+	public void preDestroy() {
+		LOG.info("preDestroy");
+	}
 
 	@Override
 	public User save(User user) {
@@ -20,7 +32,7 @@ public class MockUserRepository implements UserRepository {
 	@Override
 	public boolean delete(int id) {
 		LOG.info("Delete " + id);
-		return true;
+		return id != 0;
 	}
 
 	@Override

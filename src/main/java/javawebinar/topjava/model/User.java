@@ -9,19 +9,22 @@ public class User extends NamedEntity {
 	private String password;
 	private boolean enabled = true;
 	private Date registered = new Date();
-	private Set<Role> authorities;
-//	private List<TodoItem> todoItems = new LinkedList<>();
+	private Set<Role> roles;
 
-	public User() {
-
+	public User(User user) {
+		this(user.getId(), user.getName(), user.getEmail(), user.getPassword(), user.isEnabled(), user.getRoles());
 	}
 
-	public User(String name, String email, String password, Role role, Role... roles) {
-		super(name);
+	public User(Integer id, String name, String email, String password, boolean enabled, Role role, Role ... roles) {
+		this(id, name, email, password, enabled, EnumSet.of(role, roles));
+	}
+
+	public User(Integer id, String name, String email, String password, boolean enabled, Set<Role> roles) {
+		super(id, name);
 		this.email = email;
 		this.password = password;
-		this.enabled = true;
-		this.authorities = EnumSet.of(role, roles);
+		this.enabled = enabled;
+		this.roles = roles;
 	}
 
 	public String getEmail() {
@@ -49,10 +52,10 @@ public class User extends NamedEntity {
 	}
 
 	public void addAuthority(Role authority) {
-		if (authorities == null) {
-			authorities = EnumSet.of(authority);
+		if (roles == null) {
+			roles = EnumSet.of(authority);
 		} else {
-			authorities.add(authority);
+			roles.add(authority);
 		}
 	}
 
@@ -64,12 +67,12 @@ public class User extends NamedEntity {
 		this.registered = registered;
 	}
 
-	public Set<Role> getAuthorities() {
-		return authorities;
+	public Set<Role> getRoles() {
+		return roles;
 	}
 
-	public void setAuthorities(Set<Role> authorities) {
-		this.authorities = authorities;
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 	@Override
@@ -79,7 +82,7 @@ public class User extends NamedEntity {
 				", password='" + password + '\'' +
 				", enabled=" + enabled +
 				", registered=" + registered +
-				", authorities=" + authorities +
+				", roles=" + roles +
 				'}';
 	}
 }
