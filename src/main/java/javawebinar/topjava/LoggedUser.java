@@ -1,0 +1,31 @@
+package javawebinar.topjava;
+
+
+import javawebinar.topjava.model.Role;
+
+import java.util.Collections;
+import java.util.Set;
+
+public class LoggedUser {
+	protected int id = 0;
+	protected Set<Role> roles = Collections.singleton(Role.ROLE_USER);
+	protected boolean enabled = true;
+
+	private static LoggedUser LOGGED_USER = new LoggedUser();
+
+	public Set<Role> getAuthorities() {
+		return roles;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public static LoggedUser get() {
+		return LOGGED_USER;
+	}
+
+	public static int id() {
+		return get().id;
+	}
+}

@@ -7,7 +7,7 @@
 
     <servlet>
         <servlet-name>userServlet</servlet-name>
-        <servlet-class>ru.javawebinar.topjava.web.UserServlet</servlet-class>
+        <servlet-class>javawebinar.topjava.web.UserServlet</servlet-class>
         <load-on-startup>0</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -17,7 +17,7 @@
 
     <servlet>
         <servlet-name>userMealServlet</servlet-name>
-        <servlet-class>ru.javawebinar.topjava.web.UserMealServlet</servlet-class>
+        <servlet-class>javawebinar.topjava.web.UserMealServlet</servlet-class>
         <load-on-startup>0</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -45,7 +45,7 @@
 <!--    &lt;!&ndash;-->
 <!--        <servlet>-->
 <!--            <servlet-name>userServlet</servlet-name>-->
-<!--            <servlet-class>ru.javawebinar.topjava.web.UserServlet</servlet-class>-->
+<!--            <servlet-class>javawebinar.topjava.web.UserServlet</servlet-class>-->
 <!--            <load-on-startup>0</load-on-startup>-->
 <!--        </servlet>-->
 <!--        <servlet-mapping>-->
