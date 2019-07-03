@@ -1,7 +1,9 @@
 package javawebinar.topjava.repository.jdbc;
 
+import javawebinar.topjava.model.User;
 import javawebinar.topjava.model.UserMeal;
 import javawebinar.topjava.repository.UserMealRepository;
+import javawebinar.topjava.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 
-//@Repository
+@Repository
 public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 
 	private static final RowMapper<UserMeal> ROW_MAPPER =
@@ -32,6 +34,9 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	private SimpleJdbcInsert insertUserMeal;
+
+	@Autowired
+	private UserService userService;
 
 	@Autowired
 	public JdbcUserMealRepositoryImpl(DataSource dataSource) {
@@ -63,17 +68,18 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 
 	@Override
 	public List<UserMeal> getByUserId(String id) {
-		return null;
+		return jdbcTemplate.query("SELECT * FROM meals WHERE user_id = ?", ROW_MAPPER, id);
 	}
 
 	@Override
 	public UserMeal getByUserMealId(String id) {
-		return null;
+		final List<UserMeal> userMeals = jdbcTemplate.query("SELECT * FROM meals WHERE id = ?", ROW_MAPPER, id);
+		return CollectionUtils.isEmpty(userMeals) ? null : DataAccessUtils.requiredSingleResult(userMeals);
 	}
 
 	@Override
 	public List<UserMeal> getFromDateToDate(Date from, Date to) {
-		return null;
+		return jdbcTemplate.query("SELECT * FROM meals WHERE datetime BETWEEN ? AND ?", ROW_MAPPER, from, to);
 	}
 
 	@Override
@@ -88,18 +94,24 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 
 	@Override
 	public UserMeal update(UserMeal meal, int userId) {
-		return null;
+		return jdbcTemplate.queryForObject("INSERT INTO meals VALUES (?, ?, ?, ?, ?)", ROW_MAPPER, meal.getId(), userId, meal.getDateTime(), meal.getDescription(), meal.getCalories());
 	}
 
 	@Override
 	public UserMeal create(UserMeal meal, int userId) {
-		return null;
+		return jdbcTemplate.queryForObject("INSERT INTO meals VALUES (?, ?, ?, ?, ?)", ROW_MAPPER, meal.getId(), userId, meal.getDateTime(), meal.getDescription(), meal.getCalories());
 	}
 
 	@Override
 	public UserMeal get(int id, int userId) {
+		final User user = userService.get(userId);
 		List<UserMeal> userMeals = jdbcTemplate.query(
 				"SELECT * FROM meals WHERE id = ? AND user_id = ?", ROW_MAPPER, id, userId);
+		if (!CollectionUtils.isEmpty(userMeals)) {
+			for (final UserMeal meal : userMeals) {
+				meal.setUser(user);
+			}
+		}
 		return CollectionUtils.isEmpty(userMeals) ? null : DataAccessUtils.requiredSingleResult(userMeals);
 	}
 

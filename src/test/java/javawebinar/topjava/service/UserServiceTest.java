@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import javawebinar.topjava.util.exception.NotFoundException;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Arrays;
@@ -34,11 +33,6 @@ public class UserServiceTest {
 	@Before
 	public void setUp() throws Exception {
 		dbPopulator.execute();
-	}
-
-	@Test
-	public void testEmpty() throws Exception {
-
 	}
 
 	@Test

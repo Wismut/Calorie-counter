@@ -6,10 +6,6 @@ import java.util.Set;
 
 public class TestUser extends User {
 
-//        public TestUser() {
-//
-//        }
-
 	public TestUser(User u) {
 		this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRoles());
 	}
@@ -58,7 +54,7 @@ public class TestUser extends User {
 						&& Objects.equals(this.name, that.name)
 						&& Objects.equals(this.email, that.email)
 						&& Objects.equals(this.enabled, that.enabled)
-						&& Objects.equals(this.roles, that.roles);
-//                    && Objects.equals(this.caloriesPerDay, that.caloriesPerDay);
+						&& Objects.equals(this.roles, that.roles)
+                    && Objects.equals(this.caloriesPerDay, that.caloriesPerDay);
 	}
 }
