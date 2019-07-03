@@ -1,11 +1,11 @@
 package javawebinar.topjava.service;
 
-import javawebinar.util.exception.ExceptionUtil;
+import javawebinar.topjava.util.exception.ExceptionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javawebinar.topjava.model.User;
 import javawebinar.topjava.repository.UserRepository;
-import javawebinar.util.exception.NotFoundException;
+import javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.List;
 

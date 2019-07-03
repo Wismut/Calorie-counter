@@ -2,7 +2,7 @@ package javawebinar.topjava;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import javawebinar.util.exception.NotFoundException;
+import javawebinar.topjava.util.exception.NotFoundException;
 
 
 public class LoggerWrapper {

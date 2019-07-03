@@ -1,6 +1,6 @@
 package javawebinar.topjava.model;
 
-import javawebinar.util.TimeUtil;
+import javawebinar.topjava.util.TimeUtil;
 
 import java.time.LocalDateTime;
 

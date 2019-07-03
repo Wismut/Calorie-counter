@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javawebinar.topjava.model.UserMeal;
 import javawebinar.topjava.repository.UserMealRepository;
-import javawebinar.util.exception.ExceptionUtil;
+import javawebinar.topjava.util.exception.ExceptionUtil;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -3,7 +3,7 @@ package javawebinar.topjava.web.mock;
 import javawebinar.topjava.model.Role;
 import javawebinar.topjava.model.User;
 import javawebinar.topjava.web.user.AdminUserRestController;
-import javawebinar.util.exception.NotFoundException;
+import javawebinar.topjava.util.exception.NotFoundException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

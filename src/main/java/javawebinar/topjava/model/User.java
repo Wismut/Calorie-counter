@@ -5,17 +5,22 @@ import java.util.EnumSet;
 import java.util.Set;
 
 public class User extends NamedEntity {
-	private String email;
-	private String password;
-	private boolean enabled = true;
-	private Date registered = new Date();
-	private Set<Role> roles;
+	protected String email;
+	protected String password;
+	protected boolean enabled = true;
+	protected Date registered = new Date();
+	protected Set<Role> roles;
+	protected Integer caloriesPerDay = 0;
+
+	public User() {
+
+	}
 
 	public User(User user) {
 		this(user.getId(), user.getName(), user.getEmail(), user.getPassword(), user.isEnabled(), user.getRoles());
 	}
 
-	public User(Integer id, String name, String email, String password, boolean enabled, Role role, Role ... roles) {
+	public User(Integer id, String name, String email, String password, boolean enabled, Role role, Role... roles) {
 		this(id, name, email, password, enabled, EnumSet.of(role, roles));
 	}
 
@@ -84,5 +89,9 @@ public class User extends NamedEntity {
 				", registered=" + registered +
 				", roles=" + roles +
 				'}';
+	}
+
+	public Integer getCaloriesPerDay() {
+		return caloriesPerDay;
 	}
 }

@@ -1,7 +1,7 @@
 package javawebinar.topjava.service;
 
 import javawebinar.topjava.model.User;
-import javawebinar.util.exception.NotFoundException;
+import javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.List;
 

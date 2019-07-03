@@ -1,4 +1,4 @@
-package javawebinar.util.exception;
+package javawebinar.topjava.util.exception;
 
 
 import javawebinar.topjava.LoggerWrapper;
