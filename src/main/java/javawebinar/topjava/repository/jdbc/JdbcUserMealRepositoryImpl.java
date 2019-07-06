@@ -1,9 +1,8 @@
 package javawebinar.topjava.repository.jdbc;
 
-import javawebinar.topjava.model.User;
+
 import javawebinar.topjava.model.UserMeal;
 import javawebinar.topjava.repository.UserMealRepository;
-import javawebinar.topjava.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,7 +16,6 @@ import org.springframework.util.CollectionUtils;
 import javax.sql.DataSource;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 
@@ -34,9 +32,6 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	private SimpleJdbcInsert insertUserMeal;
-
-	@Autowired
-	private UserService userService;
 
 	@Autowired
 	public JdbcUserMealRepositoryImpl(DataSource dataSource) {
@@ -78,11 +73,6 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 	}
 
 	@Override
-	public List<UserMeal> getFromDateToDate(Date from, Date to) {
-		return jdbcTemplate.query("SELECT * FROM meals WHERE datetime BETWEEN ? AND ?", ROW_MAPPER, from, to);
-	}
-
-	@Override
 	public boolean delete(int id, int userId) {
 		return jdbcTemplate.update("DELETE FROM meals WHERE id=? AND user_id=?", id, userId) != 0;
 	}
@@ -94,24 +84,38 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 
 	@Override
 	public UserMeal update(UserMeal meal, int userId) {
-		return jdbcTemplate.queryForObject("INSERT INTO meals VALUES (?, ?, ?, ?, ?)", ROW_MAPPER, meal.getId(), userId, meal.getDateTime(), meal.getDescription(), meal.getCalories());
+		MapSqlParameterSource map = new MapSqlParameterSource()
+				.addValue("id", meal.getId())
+				.addValue("description", meal.getDescription())
+				.addValue("calories", meal.getCalories())
+				.addValue("datetime", Timestamp.valueOf(meal.getDateTime()))
+				.addValue("user_id", userId);
+		namedParameterJdbcTemplate.update("UPDATE meals SET datetime=:datetime, description=:description, calories=:calories WHERE user_id=:user_id AND id=:id", map);
+		return meal;
+//		return jdbcTemplate.update("UPDATE meals SET datetime = ?, description = ?, calories = ? WHERE user_id = ?", ROW_MAPPER, meal.getDateTime(), meal.getDescription(), meal.getCalories(), userId);
 	}
 
 	@Override
 	public UserMeal create(UserMeal meal, int userId) {
-		return jdbcTemplate.queryForObject("INSERT INTO meals VALUES (?, ?, ?, ?, ?)", ROW_MAPPER, meal.getId(), userId, meal.getDateTime(), meal.getDescription(), meal.getCalories());
+		MapSqlParameterSource map = new MapSqlParameterSource()
+				.addValue("id", meal.getId())
+				.addValue("description", meal.getDescription())
+				.addValue("calories", meal.getCalories())
+				.addValue("datetime", Timestamp.valueOf(meal.getDateTime()))
+				.addValue("user_id", userId);
+		if (meal.isNew()) {
+			Number key = insertUserMeal.executeAndReturnKey(map);
+			meal.setId(key.intValue());
+		}
+//		return namedParameterJdbcTemplate.queryForObject("INSERT INTO meals VALUES (?, ?, ?, ?, ?)", ROW_MAPPER, meal.getId(), userId, meal.getDateTime(), meal.getDescription(), meal.getCalories());
+		namedParameterJdbcTemplate.update("INSERT INTO meals(user_id, datetime, description, calories) VALUES (:user_id, :datetime, :description, :calories)", map);
+		return meal;
 	}
 
 	@Override
 	public UserMeal get(int id, int userId) {
-		final User user = userService.get(userId);
 		List<UserMeal> userMeals = jdbcTemplate.query(
 				"SELECT * FROM meals WHERE id = ? AND user_id = ?", ROW_MAPPER, id, userId);
-		if (!CollectionUtils.isEmpty(userMeals)) {
-			for (final UserMeal meal : userMeals) {
-				meal.setUser(user);
-			}
-		}
 		return CollectionUtils.isEmpty(userMeals) ? null : DataAccessUtils.requiredSingleResult(userMeals);
 	}
 

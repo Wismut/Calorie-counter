@@ -1,10 +1,12 @@
 package javawebinar.topjava.service;
 
+import javawebinar.topjava.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javawebinar.topjava.model.UserMeal;
 import javawebinar.topjava.repository.UserMealRepository;
 import javawebinar.topjava.util.exception.ExceptionUtil;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,8 +17,16 @@ public class UserMealServiceImpl implements UserMealService {
 	@Autowired
 	private UserMealRepository repository;
 
+	@Autowired
+	private UserService userService;
+
 	public UserMeal get(final int id, final int userId) {
-		return ExceptionUtil.check(repository.get(id, userId), id);
+		final User user = userService.get(userId);
+		final UserMeal userMeal = ExceptionUtil.check(repository.get(id, userId), id);
+		if (userMeal != null) {
+			userMeal.setUser(user);
+		}
+		return userMeal;
 	}
 
 	public void delete(final int id, final int userId) {

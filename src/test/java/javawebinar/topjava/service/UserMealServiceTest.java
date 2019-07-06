@@ -1,17 +1,20 @@
 package javawebinar.topjava.service;
 
-import javawebinar.topjava.LoggedUser;
+
 import javawebinar.topjava.model.BaseEntity;
+import javawebinar.topjava.model.TestUserMeal;
 import javawebinar.topjava.model.UserMeal;
 import javawebinar.topjava.model.UserMealTestData;
 import javawebinar.topjava.util.DbPopulator;
-import org.junit.After;
+import javawebinar.topjava.util.exception.NotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.time.LocalDateTime;
 
 import static org.junit.Assert.*;
 
@@ -42,6 +45,16 @@ public class UserMealServiceTest {
 
 	@Test
 	public void delete() {
+		final int userId = BaseEntity.START_SEQ;
+		final Integer userMealId = BaseEntity.START_SEQ + 2;
+		service.delete(userMealId, userId);
+	}
+
+	@Test(expected = NotFoundException.class)
+	public void deleteNotFound() {
+		final int userId = BaseEntity.START_SEQ;
+		final Integer userMealId = BaseEntity.START_SEQ;
+		service.delete(userMealId, userId);
 	}
 
 	@Test
@@ -53,17 +66,28 @@ public class UserMealServiceTest {
 
 	@Test
 	public void deleteAll() {
+		final int userId = BaseEntity.START_SEQ;
+		service.deleteAll(userId);
 	}
 
 	@Test
 	public void update() {
+		final TestUserMeal veryGoodFood = new TestUserMeal(new UserMeal(BaseEntity.START_SEQ + 2, LocalDateTime.now(), "very good food", 100));
+		final int userId = BaseEntity.START_SEQ;
+		final UserMeal userMeal = service.update(veryGoodFood, userId);
+		UserMealTestData.MATCHER.assertEquals(veryGoodFood, userMeal);
 	}
 
 	@Test
 	public void save() {
+		final TestUserMeal veryGoodFood = new TestUserMeal(new UserMeal(BaseEntity.START_SEQ + 2, LocalDateTime.now(), "very good food", 100));
+		final int userId = BaseEntity.START_SEQ;
+		final UserMeal userMeal = service.save(veryGoodFood, userId);
+		UserMealTestData.MATCHER.assertEquals(veryGoodFood, userMeal);
 	}
 
 	@Test
 	public void getBetween() {
+
 	}
 }

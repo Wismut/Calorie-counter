@@ -3,7 +3,6 @@ package javawebinar.topjava.repository;
 import javawebinar.topjava.model.UserMeal;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public interface UserMealRepository {
@@ -14,8 +13,6 @@ public interface UserMealRepository {
 
 	// null if not found
 	UserMeal getByUserMealId(final String id);
-
-	List<UserMeal> getFromDateToDate(final Date from, final Date to);
 
 	// null if not found
 	UserMeal get(final int id, final int userId);
