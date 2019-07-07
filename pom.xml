@@ -19,6 +19,8 @@
         <junit.version>4.12</junit.version>
         <slf4g.version>1.7.7</slf4g.version>
         <postgres.version>42.2.6</postgres.version>
+        <hibernate.version>4.3.8.Final</hibernate.version>
+        <hibernate-validator.version>5.1.3.Final</hibernate-validator.version>
     </properties>
 
     <build>
@@ -99,6 +101,16 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgres.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

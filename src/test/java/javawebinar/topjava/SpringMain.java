@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class SpringMain {
 	public static void main(String[] args) {
-		ClassPathXmlApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml");
+		ClassPathXmlApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/mock.xml");
 		System.out.println("\n" + Arrays.toString(appCtx.getBeanDefinitionNames()) + "\n");
 		UserRestController appCtxBean = appCtx.getBean(UserRestController.class);
 		appCtx.close();
