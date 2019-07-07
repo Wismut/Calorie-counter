@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 @ContextConfiguration({"classpath:spring/spring-app.xml",
-		"classpath:spring/spring-db.xml"})
+		"classpath:spring/mock.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserAdminSpringMockTest {
 	@Autowired

@@ -19,8 +19,6 @@
 
     <context:annotation-config/>
 
-    <context:component-scan base-package="javawebinar.**.repository"/>
-
     <context:component-scan base-package="javawebinar.**.service"/>
 
     <context:component-scan base-package="javawebinar.**.web"/>
