@@ -2,9 +2,17 @@ package javawebinar.topjava.model;
 
 import javawebinar.topjava.LoggerWrapper;
 
+import javax.persistence.*;
+
+@MappedSuperclass
+@Access(AccessType.FIELD)
 public class BaseEntity {
 	protected static final LoggerWrapper LOG = LoggerWrapper.get(BaseEntity.class);
 	public static final int START_SEQ = 100000;
+
+	@Id
+	@SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
 	protected Integer id;
 
 	public BaseEntity() {

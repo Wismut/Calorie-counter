@@ -1,5 +1,8 @@
 package javawebinar.topjava.model;
 
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public class NamedEntity extends BaseEntity {
 	protected String name;
 
