@@ -11,7 +11,16 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "unique_email")})
+@NamedQueries({
+		@NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
+		@NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"),
+		@NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.name, u.email"),
+})
 public class User extends NamedEntity {
+	public static final String DELETE = "User.delete";
+	public static final String ALL_SORTED = "User.getAllSorted";
+	public static final String BY_EMAIL = "User.getByEmail";
+
 	@Column(name = "email", nullable = false, unique = true)
 	@Email
 	@NotEmpty
@@ -33,7 +42,7 @@ public class User extends NamedEntity {
 	@Column(name = "role")
 	@ElementCollection(fetch = FetchType.EAGER)
 	protected Set<Role> roles;
-	protected Integer caloriesPerDay = 0;
+//	protected Integer caloriesPerDay = 0;
 
 	public User() {
 
@@ -114,7 +123,7 @@ public class User extends NamedEntity {
 				'}';
 	}
 
-	public Integer getCaloriesPerDay() {
-		return caloriesPerDay;
-	}
+//	public Integer getCaloriesPerDay() {
+//		return caloriesPerDay;
+//	}
 }
