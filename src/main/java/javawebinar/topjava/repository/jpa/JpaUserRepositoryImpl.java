@@ -3,6 +3,7 @@ package javawebinar.topjava.repository.jpa;
 import org.springframework.stereotype.Repository;
 import javawebinar.topjava.model.User;
 import javawebinar.topjava.repository.UserRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,6 +11,7 @@ import java.util.List;
 
 
 @Repository
+@Transactional(readOnly = true)
 public class JpaUserRepositoryImpl implements UserRepository {
 
 /*
@@ -25,6 +27,7 @@ public class JpaUserRepositoryImpl implements UserRepository {
 	private EntityManager em;
 
 	@Override
+	@Transactional
 	public User save(User user) {
 		if (user.isNew()) {
 			em.persist(user);
@@ -40,6 +43,7 @@ public class JpaUserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
+	@Transactional
 	public boolean delete(int id) {
 
 /*
