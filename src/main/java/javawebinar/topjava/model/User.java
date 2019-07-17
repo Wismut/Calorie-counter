@@ -35,7 +35,7 @@ public class User extends NamedEntity {
 	protected boolean enabled = true;
 
 	@Column(name = "registered", columnDefinition = "timestamp default now()")
-	protected Date registered;
+	protected Date registered = new Date();
 
 	@Enumerated(EnumType.STRING)
 	@CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
