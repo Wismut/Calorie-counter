@@ -1,11 +1,10 @@
 package javawebinar.topjava.repository.mock;
 
-import org.springframework.stereotype.Repository;
 import javawebinar.topjava.LoggerWrapper;
 import javawebinar.topjava.model.UserMeal;
 import javawebinar.topjava.repository.UserMealRepository;
+import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -56,12 +55,7 @@ public class MockUserMealRepositoryImpl implements UserMealRepository {
 	}
 
 	@Override
-	public UserMeal create(final UserMeal meal, final int userId) {
-		return null;
-	}
-
-	@Override
-	public List<UserMeal> getBetween(final LocalDateTime startDate, final LocalDateTime endDate, final int userId) {
+	public List<UserMeal> getBetween(final Date startDate, final Date endDate, final int userId) {
 		return null;
 	}
 }

@@ -2,7 +2,6 @@ package javawebinar.topjava.service;
 
 
 import javawebinar.topjava.model.BaseEntity;
-import javawebinar.topjava.model.TestUserMeal;
 import javawebinar.topjava.model.UserMeal;
 import javawebinar.topjava.model.UserMealTestData;
 import javawebinar.topjava.util.DbPopulator;
@@ -14,9 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @ContextConfiguration({"classpath:spring/spring-app.xml",
 		"classpath:spring/spring-db.xml"})
@@ -72,7 +72,8 @@ public class UserMealServiceTest {
 
 	@Test
 	public void update() {
-		final TestUserMeal veryGoodFood = new TestUserMeal(new UserMeal(BaseEntity.START_SEQ + 2, LocalDateTime.now(), "very good food", 100));
+//		final TestUserMeal veryGoodFood = new TestUserMeal(new UserMeal(BaseEntity.START_SEQ + 2, LocalDateTime.now(), "very good food", 100));
+		final UserMeal veryGoodFood = new UserMeal(BaseEntity.START_SEQ + 2, new Date(), "very good food", 100);
 		final int userId = BaseEntity.START_SEQ;
 		final UserMeal userMeal = service.update(veryGoodFood, userId);
 		UserMealTestData.MATCHER.assertEquals(veryGoodFood, userMeal);
@@ -80,7 +81,8 @@ public class UserMealServiceTest {
 
 	@Test
 	public void save() {
-		final TestUserMeal veryGoodFood = new TestUserMeal(new UserMeal(BaseEntity.START_SEQ + 2, LocalDateTime.now(), "very good food", 100));
+//		final TestUserMeal veryGoodFood = new TestUserMeal(new UserMeal(BaseEntity.START_SEQ + 2, LocalDateTime.now(), "very good food", 100));
+		final UserMeal veryGoodFood = new UserMeal(BaseEntity.START_SEQ + 2, new Date(), "very good food", 100);
 		final int userId = BaseEntity.START_SEQ;
 		final UserMeal userMeal = service.save(veryGoodFood, userId);
 		UserMealTestData.MATCHER.assertEquals(veryGoodFood, userMeal);
@@ -88,6 +90,11 @@ public class UserMealServiceTest {
 
 	@Test
 	public void getBetween() {
-
+		int userId = BaseEntity.START_SEQ;
+//		LocalDateTime startDate = LocalDateTime.of(2000, Month.APRIL, 1, 1, 1);
+//		LocalDateTime endDate = LocalDateTime.of(2019, Month.APRIL, 1, 1, 1);
+		Date startDate = new Date(2000, Calendar.APRIL, 1, 1, 1);
+		Date endDate = new Date(2019, Calendar.MAY, 1, 1, 1);
+		service.getBetween(startDate, endDate, userId);
 	}
 }

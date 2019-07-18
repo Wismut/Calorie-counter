@@ -6,6 +6,11 @@ public class TestUserMeal extends UserMeal {
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		return super.equals(o);
+	}
+
+	@Override
 	public String toString() {
 		return "TestUserMeal{" +
 				"id=" + id +

@@ -1,14 +1,13 @@
 package javawebinar.topjava.service;
 
 import javawebinar.topjava.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import javawebinar.topjava.model.UserMeal;
 import javawebinar.topjava.repository.UserMealRepository;
 import javawebinar.topjava.util.exception.ExceptionUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -46,10 +45,10 @@ public class UserMealServiceImpl implements UserMealService {
 	}
 
 	public UserMeal save(final UserMeal meal, final int userId) {
-		return repository.create(meal, userId);
+		return repository.save(meal, userId);
 	}
 
-	public List<UserMeal> getBetween(final LocalDateTime startDate, final LocalDateTime endDate, final int userId) {
+	public List<UserMeal> getBetween(final Date startDate, final Date endDate, final int userId) {
 		return repository.getBetween(startDate, endDate, userId);
 	}
 }

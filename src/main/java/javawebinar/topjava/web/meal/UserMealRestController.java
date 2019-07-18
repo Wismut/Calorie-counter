@@ -1,13 +1,13 @@
 package javawebinar.topjava.web.meal;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import javawebinar.topjava.LoggedUser;
 import javawebinar.topjava.LoggerWrapper;
 import javawebinar.topjava.model.UserMeal;
 import javawebinar.topjava.service.UserMealService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -53,7 +53,7 @@ public class UserMealRestController {
 		service.save(meal, userId);
 	}
 
-	public List<UserMeal> getBetween(final LocalDateTime startDate, final LocalDateTime endDate) {
+	public List<UserMeal> getBetween(final Date startDate, final Date endDate) {
 		final int userId = LoggedUser.id();
 		LOG.info("getBetween meals from {} to for user with id {}", startDate, endDate, userId);
 		return service.getBetween(startDate, endDate, userId);

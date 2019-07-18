@@ -2,7 +2,7 @@ package javawebinar.topjava.service;
 
 import javawebinar.topjava.model.UserMeal;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public interface UserMealService {
@@ -18,5 +18,5 @@ public interface UserMealService {
 
 	UserMeal save(final UserMeal meal, final int userId);
 
-	List<UserMeal> getBetween(final LocalDateTime startDate, final LocalDateTime endDate, final int userId);
+	List<UserMeal> getBetween(final Date startDate, final Date endDate, final int userId);
 }

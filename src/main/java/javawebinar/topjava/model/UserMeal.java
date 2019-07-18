@@ -1,10 +1,9 @@
 package javawebinar.topjava.model;
 
-import javawebinar.topjava.util.TimeUtil;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 
 @Entity
@@ -16,7 +15,7 @@ import java.time.LocalDateTime;
 		@NamedQuery(name = UserMeal.DELETE, query = "DELETE FROM UserMeal m WHERE m.id=:id AND m.user.id=:userId"),
 		@NamedQuery(name = UserMeal.GET_BETWEEN,
 				query = "SELECT m from UserMeal m WHERE m.user.id=:userId "+
-						" AND m.dateTime>=:after and m.dateTime<:before ORDER BY m.dateTime DESC"),
+						" AND m.dateTime>:after and m.dateTime<:before ORDER BY m.dateTime DESC"),
 })
 public class UserMeal extends BaseEntity {
 	public static final String GET = "UserMeal.get";
@@ -26,7 +25,7 @@ public class UserMeal extends BaseEntity {
 	public static final String GET_BETWEEN = "UserMeal.getBetween";
 
 	@Column(name = "datetime", nullable = false)
-	private LocalDateTime dateTime;
+	private Date dateTime;
 
 	@Column(name = "description", nullable = false)
 	@NotEmpty
@@ -47,14 +46,14 @@ public class UserMeal extends BaseEntity {
 		this(meal.id, meal.dateTime, meal.description, meal.calories);
 	}
 
-	public UserMeal(final Integer id, final LocalDateTime dateTime, final String description, final int calories) {
+	public UserMeal(final Integer id, final Date dateTime, final String description, final int calories) {
 		super(id);
 		this.dateTime = dateTime;
 		this.description = description;
 		this.calories = calories;
 	}
 
-	public LocalDateTime getDateTime() {
+	public Date getDateTime() {
 		return dateTime;
 	}
 
@@ -78,7 +77,7 @@ public class UserMeal extends BaseEntity {
 		this.user = user;
 	}
 
-	public void setDateTime(LocalDateTime dateTime) {
+	public void setDateTime(Date dateTime) {
 		this.dateTime = dateTime;
 	}
 
@@ -89,7 +88,7 @@ public class UserMeal extends BaseEntity {
 	@Override
 	public String toString() {
 		return "UserMeal{" +
-				"dateTime=" + TimeUtil.toString(dateTime) +
+				"dateTime=" + dateTime +
 				", description='" + description + '\'' +
 				", calories=" + calories +
 				", id=" + id +
