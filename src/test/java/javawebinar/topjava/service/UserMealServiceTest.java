@@ -7,7 +7,9 @@ import javawebinar.topjava.model.UserMealTestData;
 import javawebinar.topjava.util.DbPopulator;
 import javawebinar.topjava.util.exception.NotFoundException;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -22,6 +24,9 @@ import static org.junit.Assert.assertEquals;
 		"classpath:spring/spring-db.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserMealServiceTest {
+
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
 
 	@Autowired
 	protected UserMealService service;
@@ -50,8 +55,8 @@ public class UserMealServiceTest {
 		service.delete(userMealId, userId);
 	}
 
-	@Test(expected = NotFoundException.class)
 	public void deleteNotFound() {
+		thrown.expect(NotFoundException.class);
 		final int userId = BaseEntity.START_SEQ;
 		final Integer userMealId = BaseEntity.START_SEQ;
 		service.delete(userMealId, userId);

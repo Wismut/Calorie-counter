@@ -9,12 +9,6 @@ public interface UserMealRepository {
 	UserMeal save(final UserMeal userMeal, final int userId);
 
 	// null if not found
-	List<UserMeal> getByUserId(final String id);
-
-	// null if not found
-	UserMeal getByUserMealId(final String id);
-
-	// null if not found
 	UserMeal get(final int id, final int userId);
 
 	boolean delete(final int id, final int userId);

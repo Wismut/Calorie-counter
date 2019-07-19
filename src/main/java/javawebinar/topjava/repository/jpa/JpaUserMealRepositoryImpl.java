@@ -5,6 +5,7 @@ import javawebinar.topjava.model.UserMeal;
 import javawebinar.topjava.repository.UserMealRepository;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -14,7 +15,7 @@ import java.util.List;
 
 
 @Repository
-@Transactional(readOnly = true)
+@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 public class JpaUserMealRepositoryImpl implements UserMealRepository {
 	@PersistenceContext
 	private EntityManager em;
@@ -33,16 +34,6 @@ public class JpaUserMealRepositoryImpl implements UserMealRepository {
 			em.merge(userMeal);
 		}
 		return userMeal;
-	}
-
-	@Override
-	public List<UserMeal> getByUserId(String id) {
-		return null;
-	}
-
-	@Override
-	public UserMeal getByUserMealId(String id) {
-		return null;
 	}
 
 	@Override
@@ -73,7 +64,9 @@ public class JpaUserMealRepositoryImpl implements UserMealRepository {
 	@Override
 	@Transactional
 	public void deleteAll(int userId) {
-
+		em.createNamedQuery(UserMeal.DELETE_ALL)
+				.setParameter("userId", userId)
+				.executeUpdate();
 	}
 
 	@Override

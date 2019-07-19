@@ -18,18 +18,6 @@ public class MockUserMealRepositoryImpl implements UserMealRepository {
 	}
 
 	@Override
-	public List<UserMeal> getByUserId(final String id) {
-		LOG.info("getByUserId " + id);
-		return null;
-	}
-
-	@Override
-	public UserMeal getByUserMealId(final String id) {
-		LOG.info("getByUserMealId " + id);
-		return null;
-	}
-
-	@Override
 	public UserMeal get(final int id, final int userId) {
 		return null;
 	}

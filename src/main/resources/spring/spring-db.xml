@@ -26,6 +26,8 @@
         <property name="password" value="${database.password}"/>
     </bean>
 
+    <context:component-scan base-package="javawebinar.**.repository.jpa"/>
+
     <!--    <beans profile="datajpa,jpa">-->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
           p:dataSource-ref="dataSource"

@@ -62,17 +62,6 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 	}
 
 	@Override
-	public List<UserMeal> getByUserId(String id) {
-		return jdbcTemplate.query("SELECT * FROM meals WHERE user_id = ?", ROW_MAPPER, id);
-	}
-
-	@Override
-	public UserMeal getByUserMealId(String id) {
-		final List<UserMeal> userMeals = jdbcTemplate.query("SELECT * FROM meals WHERE id = ?", ROW_MAPPER, id);
-		return CollectionUtils.isEmpty(userMeals) ? null : DataAccessUtils.requiredSingleResult(userMeals);
-	}
-
-	@Override
 	public boolean delete(int id, int userId) {
 		return jdbcTemplate.update("DELETE FROM meals WHERE id=? AND user_id=?", id, userId) != 0;
 	}
