@@ -36,6 +36,7 @@ public class UserServiceTest {
 	@Before
 	public void setUp() throws Exception {
 		dbPopulator.execute();
+		userService.evictCache();
 	}
 
 	@Test
