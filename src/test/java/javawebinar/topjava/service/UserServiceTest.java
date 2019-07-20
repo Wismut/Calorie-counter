@@ -22,7 +22,8 @@ import static javawebinar.topjava.model.UserTestData.USER;
 
 @ContextConfiguration({"classpath:spring/spring-app.xml",
 		"classpath:spring/spring-db.xml"})
-@ActiveProfiles("hsqld")
+//@ActiveProfiles("hsqldb")
+@ActiveProfiles("postgres")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserServiceTest {
 
