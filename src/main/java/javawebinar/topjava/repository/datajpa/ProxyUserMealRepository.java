@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
+@Transactional(readOnly = true)
 public interface ProxyUserMealRepository extends JpaRepository<UserMeal, Integer> {
 	@Query("SELECT m FROM UserMeal m WHERE m.id = ?1 AND m.user.id = ?2")
 	UserMeal get(int id, int userId);
