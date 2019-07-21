@@ -1,5 +1,6 @@
 package javawebinar.topjava.service;
 
+import javawebinar.topjava.repository.JpaUtil;
 import javawebinar.topjava.util.DbPopulator;
 import org.junit.Before;
 import org.junit.Rule;
@@ -11,24 +12,27 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 @ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-db.xml"
+		"classpath:spring/spring-app.xml",
+		"classpath:spring/spring-db.xml"
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 abstract public class DbTest {
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
+	@Autowired
+	private JpaUtil jpaUtil;
 
-    @Autowired
-    private DbPopulator dbPopulator;
+	@Autowired
+	private DbPopulator dbPopulator;
 
-    @Autowired
-    protected UserService userService;
+	@Autowired
+	protected UserService userService;
 
-    @Before
-    public void setUp() throws Exception {
-        dbPopulator.execute();
-        userService.evictCache();
-    }
+	@Before
+	public void setUp() throws Exception {
+		dbPopulator.execute();
+		userService.evictCache();
+		jpaUtil.clear2ndLevelHibernateCache();
+	}
 }
