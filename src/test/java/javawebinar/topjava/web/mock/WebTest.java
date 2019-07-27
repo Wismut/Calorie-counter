@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
 
 @ContextConfiguration({
 		"classpath:spring/spring-app.xml",
@@ -20,6 +21,7 @@ import javax.annotation.PostConstruct;
 })
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
+@Transactional
 abstract public class WebTest {
 	protected MockMvc mockMvc;
 

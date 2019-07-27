@@ -1,14 +1,16 @@
 package javawebinar.topjava.web.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import javawebinar.topjava.LoggerWrapper;
 import javawebinar.topjava.model.User;
 import javawebinar.topjava.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/rest/admin/users")
 public class AdminUserRestController {
 	private static final LoggerWrapper LOG = LoggerWrapper.get(AdminUserRestController.class);
 
