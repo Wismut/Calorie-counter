@@ -61,7 +61,6 @@ public abstract class UserServiceTest extends DbTest {
 	public void testGetByEmail() throws Exception {
 		User user = userService.getByEmail("user@yandex.ru");
 		UserTestData.MATCHER.assertEquals(USER, user);
-
 	}
 
 	@Test
