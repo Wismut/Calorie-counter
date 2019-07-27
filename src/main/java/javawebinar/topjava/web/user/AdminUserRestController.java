@@ -2,11 +2,15 @@ package javawebinar.topjava.web.user;
 
 import javawebinar.topjava.LoggerWrapper;
 import javawebinar.topjava.model.User;
-import javawebinar.topjava.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -15,35 +19,41 @@ public class AdminUserRestController {
 	private static final LoggerWrapper LOG = LoggerWrapper.get(AdminUserRestController.class);
 
 	@Autowired
-	private UserService service;
+	private UserHelper helper;
 
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<User> getAll() {
-		LOG.info("get all users");
-		return service.getAll();
+		return helper.getAll();
 	}
 
-	public User get(final int id) {
-		LOG.info("get user by id {}", id);
-		return service.get(id);
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public User get(@PathVariable("id") int id) {
+		return helper.get(id);
 	}
 
-	public void delete(final int id) {
-		LOG.info("delete user by id {}", id);
-		service.delete(id);
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public void delete(@PathVariable("id") int id) {
+		helper.delete(id);
 	}
 
-	public User create(final User user) {
-		LOG.info("save user", user);
-		return service.save(user);
+	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<User> create(@RequestBody User user) {
+		User created = helper.create(user);
+		URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+				.path("/rest/admin/users/{id}")
+				.buildAndExpand(created.getId()).toUri();
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setLocation(uriOfNewResource);
+		return new ResponseEntity<>(created, httpHeaders, HttpStatus.CREATED);
 	}
 
-	public void update(final User user) {
-		LOG.info("update user", user);
-		service.update(user);
+	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void update(@RequestBody User user) {
+		helper.update(user);
 	}
 
-	public User getByEmail(final String email) {
-		LOG.info("get user by email {}", email);
-		return service.getByEmail(email);
+	@RequestMapping(value = "/by", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public User getByEmail(@RequestParam("email") String email) {
+		return helper.getByEmail(email);
 	}
 }
