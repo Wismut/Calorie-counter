@@ -7,9 +7,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "unique_email")})
@@ -112,8 +110,12 @@ public class User extends NamedEntity {
 		return roles;
 	}
 
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
+	public void setRoles(Role... authorities) {
+		setRoles(Arrays.asList(authorities));
+	}
+
+	public void setRoles(Collection<Role> authorities) {
+		this.roles = EnumSet.copyOf(authorities);
 	}
 
 	@Override

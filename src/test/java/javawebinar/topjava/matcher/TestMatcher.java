@@ -1,8 +1,8 @@
 package javawebinar.topjava.matcher;
 
+import javawebinar.topjava.web.json.JsonUtil;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
-//import javawebinar.topjava.web.json.JsonUtil;
 
 
 abstract public class TestMatcher<T> extends BaseMatcher<String> {
@@ -19,8 +19,8 @@ abstract public class TestMatcher<T> extends BaseMatcher<String> {
 
     abstract protected boolean compare(T expected, String actual);
 
-//    @Override
-//    public void describeTo(Description description) {
-//        description.appendText(JsonUtil.writeValue(expected));
-//    }
+    @Override
+    public void describeTo(Description description) {
+        description.appendText(JsonUtil.writeValue(expected));
+    }
 }

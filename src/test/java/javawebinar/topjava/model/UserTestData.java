@@ -2,11 +2,6 @@ package javawebinar.topjava.model;
 
 import javawebinar.topjava.LoggerWrapper;
 import javawebinar.topjava.matcher.ModelMatcher;
-//import javawebinar.topjava.util.PasswordUtil;
-
-import java.util.EnumSet;
-import java.util.Objects;
-import java.util.Set;
 
 
 public class UserTestData {
