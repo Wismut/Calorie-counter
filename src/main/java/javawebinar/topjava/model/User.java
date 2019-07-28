@@ -1,5 +1,6 @@
 package javawebinar.topjava.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
@@ -43,8 +44,12 @@ public class User extends NamedEntity {
 	@Column(name = "role")
 	@ElementCollection(fetch = FetchType.EAGER)
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+	@JsonIgnore
 	protected Set<Role> roles;
 //	protected Integer caloriesPerDay = 0;
+
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user", fetch = FetchType.LAZY)
+	private List<UserMeal> userMeals = new LinkedList<>();
 
 	public User() {
 
