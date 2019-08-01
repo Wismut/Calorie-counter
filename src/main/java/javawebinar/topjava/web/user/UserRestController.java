@@ -1,7 +1,6 @@
 package javawebinar.topjava.web.user;
 
 import javawebinar.topjava.LoggedUser;
-import javawebinar.topjava.LoggerWrapper;
 import javawebinar.topjava.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserRestController {
-	private static final LoggerWrapper LOG = LoggerWrapper.get(UserRestController.class);
-
 	@Autowired
 	private UserHelper helper;
 
