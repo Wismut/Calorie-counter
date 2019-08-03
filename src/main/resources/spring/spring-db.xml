@@ -9,11 +9,12 @@
 
     <jdbc:initialize-database data-source="dataSource" enabled="${database.init}">
         <jdbc:script location="classpath:db/${jdbc.initLocation}"/>
-        <jdbc:script location="classpath:db/populateDB.sql"/>
+        <jdbc:script location="classpath:db/populateDB.sql" encoding="UTF-8"/>
     </jdbc:initialize-database>
 
     <bean class="javawebinar.topjava.util.DbPopulator">
         <constructor-arg name="scriptLocation" value="classpath:db/populateDB.sql"/>
+        <constructor-arg name="encoding" value="UTF-8"/>
     </bean>
 
     <beans profile="hsqldb">

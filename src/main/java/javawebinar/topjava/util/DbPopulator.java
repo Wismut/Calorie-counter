@@ -10,16 +10,16 @@ import javax.sql.DataSource;
 
 
 public class DbPopulator extends ResourceDatabasePopulator {
-    private static final ResourceLoader RESOURCE_LOADER = new DefaultResourceLoader();
+	private static final ResourceLoader RESOURCE_LOADER = new DefaultResourceLoader();
 
-    @Autowired
-    private DataSource dataSource;
+	@Autowired
+	private DataSource dataSource;
 
-    public DbPopulator(String scriptLocation) {
-        super(RESOURCE_LOADER.getResource(scriptLocation));
-    }
+	public DbPopulator(String scriptLocation, String encoding) {
+		super(RESOURCE_LOADER.getResource(scriptLocation));
+	}
 
-    public void execute() {
-        DatabasePopulatorUtils.execute(this, dataSource);
-    }
+	public void execute() {
+		DatabasePopulatorUtils.execute(this, dataSource);
+	}
 }

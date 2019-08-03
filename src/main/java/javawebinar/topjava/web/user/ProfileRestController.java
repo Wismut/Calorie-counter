@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class UserRestController {
+@RequestMapping("/rest/profile")
+public class ProfileRestController {
 	@Autowired
 	private UserHelper helper;
 
@@ -27,5 +28,10 @@ public class UserRestController {
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void update(@RequestBody User user) {
 		helper.update(user);
+	}
+
+	@RequestMapping(value = "/text", method = RequestMethod.GET)
+	public String textUTF() {
+		return "Текст";
 	}
 }
