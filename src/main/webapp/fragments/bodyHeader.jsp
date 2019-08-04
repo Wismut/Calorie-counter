@@ -11,6 +11,7 @@
 <%--<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">--%>
     <div class="container">
 
+
 <%--        <c:url value="/meals" var="meals"/>--%>
 <%--        <a href="${meals}" class="navbar-brand"><fmt:message key="app.title"/></a>--%>
 
