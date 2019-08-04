@@ -8,7 +8,7 @@
 <fmt:setLocale value="ru"/>
 <fmt:setBundle basename="messages.app"/>
 --%>
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<%--<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">--%>
     <div class="container">
 
 <%--        <c:url value="/meals" var="meals"/>--%>
@@ -29,4 +29,4 @@
 <%--            </form:form>--%>
 <%--        </div>--%>
     </div>
-</div>
+<%--</div>--%>
