@@ -1,5 +1,6 @@
 package javawebinar.topjava.web.user;
 
+import javawebinar.topjava.model.Role;
 import javawebinar.topjava.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -30,10 +31,15 @@ public class AdminAjaxController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public void update(@PathVariable("id") int id,
+	public void update(@RequestParam("id") int id,
 	                   @RequestParam("name") String name,
 	                   @RequestParam("password") String password,
 	                   @RequestParam("email") String email) {
-
+		User user = new User(id, name, email, password, true, Role.ROLE_USER);
+		if (id == 0) {
+			helper.create(user);
+		} else {
+			helper.update(user, id);
+		}
 	}
 }

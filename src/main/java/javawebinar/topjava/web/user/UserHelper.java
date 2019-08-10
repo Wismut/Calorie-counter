@@ -44,4 +44,10 @@ public class UserHelper {
 		LOG.info("getByEmail " + email);
 		return service.getByEmail(email);
 	}
+
+	public void update(User user, int id) {
+		LOG.info("update " + user);
+		user.setId(id);
+		service.update(user);
+	}
 }
