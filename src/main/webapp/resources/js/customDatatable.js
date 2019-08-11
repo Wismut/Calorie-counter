@@ -8,7 +8,7 @@ function makeEditable(ajaxUrl) {
         deleteRow($(this).attr('id'));
     });
 
-    $('#rowForm').submit(function () {
+    $('#detailsForm').submit(function () {
         save();
         return false;
     });
@@ -37,7 +37,7 @@ function updateTable() {
 }
 
 function save() {
-    var frm = $('#rowFrom');
+    var frm = $('#detailsForm');
     $.ajax({
         type: 'POST',
         url: ajaxUrl,
