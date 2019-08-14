@@ -34,4 +34,9 @@ public class UserMealServlet extends HttpServlet {
 		req.setAttribute("userMeals", userMeals);
 		req.getRequestDispatcher("/mealList.jsp").forward(req, resp);
 	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		super.doPost(req, resp);
+	}
 }

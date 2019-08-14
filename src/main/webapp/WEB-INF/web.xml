@@ -42,19 +42,6 @@
         <url-pattern>/usermeals</url-pattern>
     </servlet-mapping>
 
-
-    <!--    &lt;!&ndash;-->
-    <!--        <servlet>-->
-    <!--            <servlet-name>userServlet</servlet-name>-->
-    <!--            <servlet-class>javawebinar.topjava.web.UserServlet</servlet-class>-->
-    <!--            <load-on-startup>0</load-on-startup>-->
-    <!--        </servlet>-->
-    <!--        <servlet-mapping>-->
-    <!--            <servlet-name>userServlet</servlet-name>-->
-    <!--            <url-pattern>/users</url-pattern>-->
-    <!--        </servlet-mapping>-->
-    <!--    &ndash;&gt;-->
-
     <!-- Spring MVC -->
     <servlet>
         <servlet-name>mvc-dispatcher</servlet-name>

@@ -14,7 +14,7 @@
     <div class="container">
         <div class="shadow">
             <h3><fmt:message key="meals.title"/></h3>
-            <c:set var="ajaxUrl" value="ajax/meals/"/>
+            <c:set var="ajaxUrl" value="ajax/profile/meals/"/>
             <div class="view-box">
                 <a class="btn btn-sm btn-info" id="add">Add Meal</a>
                 <datatables:table id="datatable" data="${userMeals}" row="user" theme="bootstrap3"

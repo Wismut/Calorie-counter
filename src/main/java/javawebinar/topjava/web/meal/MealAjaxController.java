@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ajax/meals")
+@RequestMapping("/ajax/profile/meals")
 public class MealAjaxController {
 	@Autowired
 	private UserMealHelper helper;

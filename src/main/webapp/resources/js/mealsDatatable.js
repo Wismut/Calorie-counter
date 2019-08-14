@@ -1,5 +1,10 @@
 function mealActionsHandler() {
     $('#add').click(function () {
-        console.log('id click');
+        $('#item_id').val(0);
+        $('#editRow').modal();
+    });
+
+    $('#detailsForm').submit(function () {
+        console.log(123);
     });
 }
