@@ -4,25 +4,17 @@ package javawebinar.topjava;
 import javawebinar.topjava.model.Role;
 import javawebinar.topjava.model.User;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
 public class LoggedUser implements UserDetails {
-	protected int id = 0;
-	protected Set<Role> roles = Collections.singleton(Role.ROLE_USER);
-	protected boolean enabled = true;
-
-	private static LoggedUser LOGGED_USER = new LoggedUser();
+	protected User user;
 
 	public LoggedUser(User user) {
-		id = user.getId();
-		roles = user.getRoles();
-		enabled = user.isEnabled();
+		this.user = user;
 	}
 
 	public LoggedUser() {
@@ -30,45 +22,47 @@ public class LoggedUser implements UserDetails {
 	}
 
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+	public Set<Role> getAuthorities() {
+		return user.getRoles();
 	}
 
 	@Override
 	public String getPassword() {
-		return null;
+		return user.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		return null;
+		return user.getEmail();
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		return false;
+		return user.isEnabled();
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return false;
+		return user.isEnabled();
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return false;
+		return user.isEnabled();
 	}
 
 	public boolean isEnabled() {
-		return enabled;
+		return user.isEnabled();
 	}
 
 	public static LoggedUser get() {
-		return LOGGED_USER;
+		LoggedUser user = safeGet();
+		Objects.requireNonNull(user, "No authorized user found");
+		return user;
 	}
 
 	public static int id() {
-		return get().id;
+		return get().user.getId();
 	}
 
 	public static LoggedUser safeGet() {
