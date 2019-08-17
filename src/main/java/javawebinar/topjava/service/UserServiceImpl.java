@@ -1,5 +1,6 @@
 package javawebinar.topjava.service;
 
+import javawebinar.topjava.LoggedUser;
 import javawebinar.topjava.model.User;
 import javawebinar.topjava.repository.UserRepository;
 import javawebinar.topjava.util.exception.ExceptionUtil;
@@ -7,12 +8,15 @@ import javawebinar.topjava.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Autowired
 	private UserRepository repository;
@@ -55,5 +59,14 @@ public class UserServiceImpl implements UserService {
 	@CacheEvict(value = "users", allEntries = true)
 	public void evictCache() {
 
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		User user = repository.getByEmail(email);
+		if (user == null) {
+			throw new UsernameNotFoundException("User " + email + " not found");
+		}
+		return new LoggedUser(user);
 	}
 }

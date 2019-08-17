@@ -1,5 +1,6 @@
 package javawebinar.topjava.web.user;
 
+import javawebinar.topjava.LoggedUser;
 import javawebinar.topjava.LoggerWrapper;
 import javawebinar.topjava.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class AdminUserRestController {
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<User> getAll() {
+		LoggedUser.safeGet();
 		return helper.getAll();
 	}
 
