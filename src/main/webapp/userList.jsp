@@ -19,16 +19,18 @@
             <div class="view-box">
                 <a class="btn btn-sm btn-info" id="add">Add User</a>
 
-                <datatables:table id="datatable" data="${userList}" row="user" theme="bootstrap3"
+                <datatables:table id="datatable" url="${ajaxUrl}" row="user" theme="bootstrap3"
                                   cssClass="table table-striped" pageable="false" info="false">
 
                     <datatables:column title="Name" sortInitDirection="asc" property="name"/>
-                    <datatables:column title="Email" property="email"/>
+                    <datatables:column title="Email" property="email" renderFunction="renderEmail"/>
                     <datatables:column title="Roles" property="roles"/>
-                    <datatables:column title="Active" filterable="false" property="enabled"/>
-                    <datatables:column title="Registered" filterable="false" property="registered"/>
-                    <datatables:column sortable="false"/>
-                    <datatables:column sortable="false"/>
+                    <datatables:column title="Active" filterable="false" property="enabled"
+                                       renderFunction="renderCheckbox"/>
+                    <datatables:column title="Registered" filterable="false" property="registered"
+                                       renderFunction="renderDate"/>
+                    <datatables:column sortable="false" renderFunction="renderUpdateBtn"/>
+                    <datatables:column sortable="false" renderFunction="renderDeleteBtn"/>
 
                     <datatables:callback type="init" function="makeEditable"/>
                 </datatables:table>
@@ -83,10 +85,14 @@
 </div>
 </body>
 <script type="text/javascript">
-    var ajaxUrl = 'ajax/admin/users';
-    // $(document).ready(function () {
-    $(function () {
-        makeEditable();
-    });
+    var ajaxUrl = ${ajaxUrl};
+
+    function specialUpdate() {
+        $(':checkbox').each(function () {
+            if (!$(this).is(':checked')) {
+                $(this).parent().parent().css('text-decoration', 'light-through');
+            }
+        })
+    }
 </script>
 </html>

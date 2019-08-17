@@ -77,7 +77,7 @@
 </div>
 </body>
 <script type="text/javascript">
-    var ajaxUrl = 'ajax/profile/meals';
+    var ajaxUrl = ${ajaxUrl};
     $(function () {
         mealActionsHandler();
     });

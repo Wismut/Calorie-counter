@@ -18,6 +18,15 @@ function makeEditable(ajaxUrl) {
     });
 }
 
+function updateRow(id) {
+    $.get(ajaxUrl + id, function (data) {
+        $.each(data, function (key, value) {
+            form.find("input[name='" + key + "']").val(value);
+        });
+        $('#editRow').modal();
+    });
+}
+
 function deleteRow(id) {
     $.ajax({
         url: ajaxUrl + id,
@@ -26,8 +35,7 @@ function deleteRow(id) {
             updateTable();
             success('Deleted');
         }
-    })
-    ;
+    });
 }
 
 function updateTable() {
@@ -80,4 +88,40 @@ function fail(event, jqXHR, options, jsExc) {
         type: 'error',
         layout: 'bottomRight'
     });
+}
+
+function renderDate(date, type, row) {
+    if (type == 'display') {
+        var dateObject = new Date(date);
+        return '<span>' + dateObject.toISOString().substring(0, 10) + '</span>';
+    }
+    return date;
+}
+
+function renderEmail(data, type, row) {
+    if (type == 'display') {
+        return '<a href="mailto:' + data + '">' + data + '</a>';
+    }
+    return data;
+}
+
+function renderUpdateBtn(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-xs btn-primary" onclick="updateRow(' + row.id + ')">Update</a>';
+    }
+    return data;
+}
+
+function renderDeleteBtn(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-xs btn-danger" onclick="deleteRow(' + row.id + ')">Delete</a>';
+    }
+    return data;
+}
+
+function renderCheckbox(data, type, row) {
+    if (type == 'display') {
+        return '<input type="checkbox"' + (data ? ' checked ' : ' ') + 'onclick="enable(' + row.id + ',$(this))"/>';
+    }
+    return data;
 }
