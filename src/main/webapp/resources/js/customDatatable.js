@@ -1,3 +1,5 @@
+var form = $('#detailsForm');
+
 function makeEditable(ajaxUrl) {
     $('#add').click(function () {
         $('#item_id').val(0);
@@ -9,7 +11,7 @@ function makeEditable(ajaxUrl) {
     });
 
     $('#detailsForm').submit(function () {
-        save();
+        saveUser();
         return false;
     });
 
@@ -48,7 +50,7 @@ function updateTable() {
     });
 }
 
-function save() {
+function saveUser() {
     var frm = $('#detailsForm');
     $.ajax({
         type: 'POST',

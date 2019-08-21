@@ -14,10 +14,10 @@
     <div class="container">
         <div class="shadow">
             <h3><fmt:message key="meals.title"/></h3>
-            <c:set var="ajaxUrl" value="ajax/profile/meals/"/>
+            <c:set var="ajaxMealUrl" value="ajax/profile/meals/"/>
             <div class="view-box">
                 <a class="btn btn-sm btn-info" id="add">Add Meal</a>
-                <datatables:table id="datatable" data="${userMeals}" row="user" theme="bootstrap3"
+                <datatables:table id="datatable" url="${ajaxMealUrl}" row="user" theme="bootstrap3"
                                   cssClass="table table-striped" pageable="false" info="false">
                     <datatables:column title="Description" sortInitDirection="asc" property="description"/>
                     <datatables:column title="Datetime" property="dateTime"/>
@@ -77,9 +77,6 @@
 </div>
 </body>
 <script type="text/javascript">
-    var ajaxUrl = ${ajaxUrl};
-    $(function () {
-        mealActionsHandler();
-    });
+    var ajaxMealUrl = "${ajaxMealUrl}";
 </script>
 </html>

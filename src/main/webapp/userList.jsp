@@ -15,11 +15,11 @@
         <div class="shadow">
             <h3><fmt:message key="users.title"/></h3>
 
-            <c:set var="ajaxUrl" value="ajax/admin/users/"/>
+            <c:set var="ajaxMealUrl" value="ajax/admin/users/"/>
             <div class="view-box">
                 <a class="btn btn-sm btn-info" id="add">Add User</a>
 
-                <datatables:table id="datatable" url="${ajaxUrl}" row="user" theme="bootstrap3"
+                <datatables:table id="datatable" url="${ajaxMealUrl}" row="user" theme="bootstrap3"
                                   cssClass="table table-striped" pageable="false" info="false">
 
                     <datatables:column title="Name" sortInitDirection="asc" property="name"/>
@@ -85,7 +85,7 @@
 </div>
 </body>
 <script type="text/javascript">
-    var ajaxUrl = ${ajaxUrl};
+    var ajaxUrl = "${ajaxMealUrl}";
 
     function specialUpdate() {
         $(':checkbox').each(function () {

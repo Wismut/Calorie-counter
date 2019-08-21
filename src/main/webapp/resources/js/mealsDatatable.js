@@ -5,7 +5,7 @@ function mealActionsHandler() {
     });
 
     $('#detailsForm').submit(function () {
-        save();
+        saveMeal();
         return false;
     });
 
@@ -14,8 +14,8 @@ function mealActionsHandler() {
     });
 }
 
-function save() {
-    console.log(12345);
+function saveMeal() {
+    console.log('save meal');
     var frm = $('#detailsForm');
     $.ajax({
         type: 'POST',
