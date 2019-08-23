@@ -7,7 +7,7 @@ import javawebinar.topjava.matcher.ModelMatcher;
 public class UserTestData {
     private static final LoggerWrapper LOG = LoggerWrapper.get(UserTestData.class);
 
-    public static final TestUser USER = new TestUser(BaseEntity.START_SEQ, "User", "user@yandex.ru", "password", true, Role.ROLE_USER);
+    public static final TestUser USER = new TestUser(BaseEntity.START_SEQ, "User", "user@gmail.com", "password", true, Role.ROLE_USER);
     public static final User ADMIN = new TestUser(BaseEntity.START_SEQ + 1, "Admin", "admin@gmail.com", "admin", true, Role.ROLE_ADMIN);
 
 //    public static class TestUser extends User {

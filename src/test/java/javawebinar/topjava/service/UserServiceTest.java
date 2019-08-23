@@ -37,7 +37,7 @@ public abstract class UserServiceTest extends DbTest {
 
 	@Test(expected = DataAccessException.class)
 	public void testDuplicateMailSave() throws Exception {
-		userService.save(new TestUser("Duplicate", "user@yandex.ru", "newPass", Role.ROLE_USER).asUser());
+		userService.save(new TestUser("Duplicate", "user@gmail.com", "newPass", Role.ROLE_USER).asUser());
 	}
 
 	@Test
@@ -59,7 +59,7 @@ public abstract class UserServiceTest extends DbTest {
 
 	@Test
 	public void testGetByEmail() throws Exception {
-		User user = userService.getByEmail("user@yandex.ru");
+		User user = userService.getByEmail("user@gmail.com");
 		UserTestData.MATCHER.assertEquals(USER, user);
 	}
 

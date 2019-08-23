@@ -5,7 +5,7 @@ ALTER SEQUENCE global_seq RESTART WITH 100000;
 
 -- password
 INSERT INTO users (name, email, password)
-VALUES ('User', 'user@yandex.ru', 'password');
+VALUES ('User', 'user@gmail.com', 'password');
 -- admin
 INSERT INTO users (name, email, password)
 VALUES ('Admin', 'admin@gmail.com', 'password');
