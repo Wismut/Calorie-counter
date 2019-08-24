@@ -2,6 +2,9 @@ var form = $('#detailsForm');
 
 function makeEditable(ajaxUrl) {
     $('#add').click(function () {
+        form.find(':input').each(function () {
+            $(this).val('');
+        });
         $('#item_id').val(0);
         $('#editRow').modal();
     });
