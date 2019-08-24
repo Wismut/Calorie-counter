@@ -1,4 +1,4 @@
-package javawebinar.topjava.web.user;
+package javawebinar.topjava.web.meal;
 
 import javawebinar.topjava.web.mock.WebTest;
 import org.junit.Test;
@@ -10,23 +10,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
 @ActiveProfiles({HSQLDB, DATAJPA})
-public class UserControllerTest extends WebTest {
-
+public class UserMealControllerTest extends WebTest {
 	@Test
-	public void userList() throws Exception {
-		mockMvc.perform(get("/users"))
+	public void testMealList() throws Exception {
+		mockMvc.perform(get("/meals"))
 				.andDo(print())
 				.andExpect(status().isOk())
-				.andExpect(view().name("userList"))
-				.andExpect(forwardedUrl("/WEB-INF/jsp/userList.jsp"));
-//				.andExpect(model().attribute("userList", hasSize(2)))
-//				.andExpect(model().attribute("userList", hasItem(
-//						allOf(
-//								hasProperty("id", is(START_SEQ)),
-//								hasProperty("name", is(USER.getName()))
-//						)
-//				)));
+				.andExpect(view().name("mealList"))
+				.andExpect(forwardedUrl("/WEB-INF/jsp/mealList.jsp"));
 	}
 }

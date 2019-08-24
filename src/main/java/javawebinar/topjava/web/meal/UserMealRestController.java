@@ -20,6 +20,8 @@ public class UserMealRestController {
 	@Autowired
 	private UserMealHelper helper;
 
+	public static final String REST_URL = "/rest/profile/meals";
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public UserMeal get(@PathVariable("id") int id) {
 		return helper.get(id);
