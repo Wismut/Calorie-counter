@@ -9,32 +9,31 @@
     <http pattern="/resources/**" security="none"/>
     <http pattern="/webjars/**" security="none"/>
 
-    <http pattern="/rest/**" use-expressions="true" name="restSecurityFilterChain" create-session="stateless">
+    <http pattern="/rest/**" use-expressions="true" create-session="stateless">
         <http-basic/>
         <intercept-url pattern="/rest/admin/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/**" access="isAuthenticated()"/>
-        <!--        todo access changed-->
-        <!--        <csrf disabled="true"/>-->
+        <csrf disabled="true"/>
     </http>
 
-    <!--    <http>-->
-    <!--        <intercept-url pattern="/login" access="permitAll"/>-->
-    <!--        <intercept-url pattern="/register" access="permitAll"/>-->
+    <http>
+        <intercept-url pattern="/login" access="permitAll"/>
+        <intercept-url pattern="/register" access="permitAll"/>
 
-    <!--        <intercept-url pattern="/**/admin/**" access="hasRole('ROLE_ADMIN')"/>-->
-    <!--        <intercept-url pattern="/**" access="isAuthenticated()"/>-->
-    <!--        <form-login login-page="/login" default-target-url="/meals"-->
-    <!--                    authentication-failure-url="/login?error=true"-->
-    <!--                    login-processing-url="/spring_security_check"/>-->
-    <!--        <logout logout-success-url="/login"/>-->
-    <!--        &lt;!&ndash;<csrf disabled="true"/>&ndash;&gt;-->
-    <!--    </http>-->
+        <intercept-url pattern="/**/admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/**" access="isAuthenticated()"/>
+        <form-login login-page="/login" default-target-url="/meals"
+                    authentication-failure-url="/login?error=true"
+                    login-processing-url="/spring_security_check"/>
+        <logout logout-success-url="/login"/>
+        <csrf disabled="true"/>
+    </http>
 
-    <!--    <beans:bean class="javawebinar.topjava.util.PasswordUtil" id="passwordEncoder" factory-method="getPasswordEncoder"/>-->
+    <beans:bean class="javawebinar.topjava.util.PasswordUtil" id="passwordEncoder" factory-method="getPasswordEncoder"/>
 
     <authentication-manager>
         <authentication-provider user-service-ref="userService">
-            <!--            <password-encoder/>-->
+            <password-encoder ref="passwordEncoder"/>
             <!-- <jdbc-user-service data-source-ref="dataSource"
                                 users-by-username-query="SELECT email, password, enabled FROM users WHERE email = ?"
                                 authorities-by-username-query="

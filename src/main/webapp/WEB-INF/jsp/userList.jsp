@@ -7,9 +7,9 @@
 
 <html>
 <dandelion:bundle includes="topjavaDatatable"/>
-<jsp:include page="fragments/headTag.jsp"/>
+<jsp:include page="../../fragments/headTag.jsp"/>
 <body>
-<jsp:include page="fragments/bodyHeader.jsp"/>
+<jsp:include page="../../fragments/bodyHeader.jsp"/>
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
@@ -36,7 +36,7 @@
         </div>
     </div>
 </div>
-<jsp:include page="fragments/footer.jsp"/>
+<jsp:include page="../../fragments/footer.jsp"/>
 <div class="modal fade" id="editRow">
     <div class="modal-dialog">
         <div class="modal-content">

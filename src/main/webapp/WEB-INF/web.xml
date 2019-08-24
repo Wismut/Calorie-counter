@@ -22,25 +22,25 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
-    <servlet>
-        <servlet-name>userServlet</servlet-name>
-        <servlet-class>javawebinar.topjava.web.UserServlet</servlet-class>
-        <load-on-startup>0</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>userServlet</servlet-name>
-        <url-pattern>/users</url-pattern>
-    </servlet-mapping>
+<!--    <servlet>-->
+<!--        <servlet-name>userServlet</servlet-name>-->
+<!--        <servlet-class>javawebinar.topjava.web.UserServlet</servlet-class>-->
+<!--        <load-on-startup>0</load-on-startup>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>userServlet</servlet-name>-->
+<!--        <url-pattern>/users</url-pattern>-->
+<!--    </servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>userMealServlet</servlet-name>
-        <servlet-class>javawebinar.topjava.web.UserMealServlet</servlet-class>
-        <load-on-startup>0</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>userMealServlet</servlet-name>
-        <url-pattern>/meals</url-pattern>
-    </servlet-mapping>
+<!--    <servlet>-->
+<!--        <servlet-name>userMealServlet</servlet-name>-->
+<!--        <servlet-class>javawebinar.topjava.web.UserMealServlet</servlet-class>-->
+<!--        <load-on-startup>0</load-on-startup>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>userMealServlet</servlet-name>-->
+<!--        <url-pattern>/meals</url-pattern>-->
+<!--    </servlet-mapping>-->
 
     <!-- Spring MVC -->
     <servlet>
