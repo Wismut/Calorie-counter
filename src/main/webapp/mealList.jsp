@@ -22,6 +22,9 @@
                     <datatables:column title="Description" sortInitDirection="asc" property="description"/>
                     <datatables:column title="Datetime" property="dateTime"/>
                     <datatables:column title="Calories" property="calories"/>
+                    <datatables:column sortable="false" renderFunction="renderUpdateBtn"/>
+                    <datatables:column sortable="false" renderFunction="renderDeleteBtn"/>
+
                     <datatables:callback type="init" function="mealActionsHandler"/>
                 </datatables:table>
             </div>
@@ -78,5 +81,18 @@
 </body>
 <script type="text/javascript">
     var ajaxMealUrl = "${ajaxMealUrl}";
+
+    function init() {
+        coloredTable();
+    }
+
+    function updateTable() {
+        $.get(ajaxMealUrl, updateByData);
+        checkedUsers();
+    }
+
+    function coloredTable() {
+        // TODO implements
+    }
 </script>
 </html>

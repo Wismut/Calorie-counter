@@ -18,6 +18,16 @@ function makeEditable(ajaxUrl) {
     $(document).ajaxError(function (event, jqXHR, options, jsExc) {
         fail(event, jqXHR, options, jsExc);
     });
+
+    init();
+}
+
+function updateByData(data) {
+    oTable_datatable.fnClearTable();
+    $.each(data, function (key, item) {
+        oTable_datatable.fnAddData(item);
+    });
+    oTable_datatable.fnDraw();
 }
 
 function updateRow(id) {
@@ -37,16 +47,6 @@ function deleteRow(id) {
             updateTable();
             success('Deleted');
         }
-    });
-}
-
-function updateTable() {
-    $.get(ajaxUrl, function (data) {
-        oTable_dataTable.fnClearTable();
-        $.each(data, function (key, item) {
-            oTable_dataTable.fnAddData(item);
-        });
-        oTable_dataTable.fnDraw();
     });
 }
 
