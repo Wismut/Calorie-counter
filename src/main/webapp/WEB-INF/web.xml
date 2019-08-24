@@ -39,7 +39,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>userMealServlet</servlet-name>
-        <url-pattern>/usermeals</url-pattern>
+        <url-pattern>/meals</url-pattern>
     </servlet-mapping>
 
     <!-- Spring MVC -->
