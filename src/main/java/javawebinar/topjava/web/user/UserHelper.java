@@ -3,6 +3,7 @@ package javawebinar.topjava.web.user;
 import javawebinar.topjava.LoggerWrapper;
 import javawebinar.topjava.model.User;
 import javawebinar.topjava.service.UserService;
+import javawebinar.topjava.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,17 +18,21 @@ public class UserHelper {
 
 	public List<User> getAll() {
 		LOG.info("get all");
-		return service.getAll();
+		List<User> all = service.getAll();
+		all.forEach(u -> u.setPassword(null));
+		return all;
 	}
 
 	public User get(int id) {
 		LOG.info("get " + id);
-		return service.get(id);
+		User user = service.get(id);
+		user.setPassword(null);
+		return user;
 	}
 
 	public User create(User user) {
 		LOG.info("create " + user);
-		return service.save(user);
+		return service.save(PasswordUtil.getEncoded(user));
 	}
 
 	public void delete(int id) {
@@ -37,7 +42,7 @@ public class UserHelper {
 
 	public void update(User user) {
 		LOG.info("update " + user);
-		service.update(user);
+		service.update(PasswordUtil.getEncoded(user));
 	}
 
 	public User getByEmail(final String email) {

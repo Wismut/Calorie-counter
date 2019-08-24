@@ -1,5 +1,6 @@
 package javawebinar.topjava.util;
 
+import javawebinar.topjava.model.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
@@ -31,5 +32,10 @@ public class PasswordUtil {
 
 	public static boolean isEncoded(String newPassword) {
 		return BCRYPT_PATTERN.matcher(newPassword).matches();
+	}
+
+	public static User getEncoded(User user) {
+		user.setPassword(encode(user.getPassword()));
+		return user;
 	}
 }

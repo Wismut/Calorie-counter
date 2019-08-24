@@ -49,7 +49,7 @@ public class TestUser extends User {
 
 		TestUser that = (TestUser) o;
 
-		return //comparePassword(this.password, that.password) &&
+		return //comparePassword(this.password, that.password) && TODO for password encoding
 				Objects.equals(this.id, that.id)
 						&& Objects.equals(this.name, that.name)
 						&& Objects.equals(this.email, that.email)
