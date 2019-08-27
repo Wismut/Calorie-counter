@@ -1,5 +1,6 @@
 package javawebinar.topjava.model;
 
+import javawebinar.topjava.util.AbstractUser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
@@ -17,7 +18,7 @@ import java.util.*;
 		@NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"),
 		@NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.name, u.email"),
 })
-public class User extends NamedEntity {
+public class User extends NamedEntity implements AbstractUser {
 	public static final String DELETE = "User.delete";
 	public static final String ALL_SORTED = "User.getAllSorted";
 	public static final String BY_EMAIL = "User.getByEmail";
@@ -45,7 +46,7 @@ public class User extends NamedEntity {
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 //	@JsonIgnore
 	protected Set<Role> roles;
-//	protected Integer caloriesPerDay = 0;
+	protected Integer caloriesPerDay = 0;
 
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user", fetch = FetchType.LAZY)
 	private List<UserMeal> userMeals = new LinkedList<>();
@@ -84,6 +85,16 @@ public class User extends NamedEntity {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Override
+	public int getCaloriesPerDay() {
+		return caloriesPerDay;
+	}
+
+	@Override
+	public void setCaloriesPerDay(int caloriesPerDay) {
+		this.caloriesPerDay = caloriesPerDay;
 	}
 
 	public boolean isEnabled() {
@@ -132,8 +143,4 @@ public class User extends NamedEntity {
 				", roles=" + roles +
 				'}';
 	}
-
-//	public Integer getCaloriesPerDay() {
-//		return caloriesPerDay;
-//	}
 }
