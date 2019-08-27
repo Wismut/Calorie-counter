@@ -46,6 +46,8 @@ public class User extends NamedEntity implements AbstractUser {
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 //	@JsonIgnore
 	protected Set<Role> roles;
+
+	@Column(name = "calories_per_day")
 	protected Integer caloriesPerDay = 0;
 
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user", fetch = FetchType.LAZY)

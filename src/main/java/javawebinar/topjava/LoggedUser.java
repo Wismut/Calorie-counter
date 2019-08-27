@@ -1,76 +1,92 @@
 package javawebinar.topjava;
 
-
 import javawebinar.topjava.model.Role;
 import javawebinar.topjava.model.User;
+import javawebinar.topjava.to.UserTo;
+import javawebinar.topjava.util.UserUtil;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Objects;
+import java.io.Serializable;
 import java.util.Set;
 
-public class LoggedUser implements UserDetails {
-	protected User user;
+import static java.util.Objects.requireNonNull;
 
-	public LoggedUser(User user) {
-		this.user = user;
-	}
 
-	public LoggedUser() {
+public class LoggedUser implements UserDetails, Serializable {
+    private UserTo userTo;
+    private final boolean enabled;
+    private final Set<Role> roles;
+    private final String encodedPassword;
 
-	}
+    public LoggedUser(User user) {
+        this.userTo = UserUtil.asTo(user);
+        this.enabled = user.isEnabled();
+        this.roles = user.getRoles();
+        this.encodedPassword = user.getPassword();
+    }
 
-	@Override
-	public Set<Role> getAuthorities() {
-		return user.getRoles();
-	}
+    public static LoggedUser safeGet() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null) {
+            return null;
+        }
+        Object user = auth.getPrincipal();
+        return (user instanceof LoggedUser) ? (LoggedUser) user : null;
+    }
 
-	@Override
-	public String getPassword() {
-		return user.getPassword();
-	}
+    public static LoggedUser get() {
+        LoggedUser user = safeGet();
+        requireNonNull(user, "No authorized user found");
+        return user;
+    }
 
-	@Override
-	public String getUsername() {
-		return user.getEmail();
-	}
+    public UserTo getUserTo() {
+        return userTo;
+    }
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return user.isEnabled();
-	}
+    public static int id() {
+        return get().userTo.getId();
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		return user.isEnabled();
-	}
+    @Override
+    public Set<Role> getAuthorities() {
+        return roles;
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return user.isEnabled();
-	}
+    @Override
+    public String getPassword() {
+        return encodedPassword;
+    }
 
-	public boolean isEnabled() {
-		return user.isEnabled();
-	}
+    @Override
+    public String getUsername() {
+        return userTo.getEmail();
+    }
 
-	public static LoggedUser get() {
-		LoggedUser user = safeGet();
-		Objects.requireNonNull(user, "No authorized user found");
-		return user;
-	}
+    @Override
+    public boolean isAccountNonExpired() {
+        return enabled;
+    }
 
-	public static int id() {
-		return get().user.getId();
-	}
+    @Override
+    public boolean isAccountNonLocked() {
+        return enabled;
+    }
 
-	public static LoggedUser safeGet() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth == null) {
-			return null;
-		}
-		Object user = auth.getPrincipal();
-		return user instanceof LoggedUser ? (LoggedUser) user : null;
-	}
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return enabled;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void updateUserTo(UserTo userTo) {
+        userTo.setId(this.userTo.getId());
+        this.userTo = UserUtil.asTo(userTo);
+    }
 }
