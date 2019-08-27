@@ -82,4 +82,9 @@ public class RootController {
 			return "redirect:meals";
 		}
 	}
+
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	public String profile(ModelMap model) {
+		return "profile";
+	}
 }
