@@ -1,6 +1,7 @@
 package javawebinar.topjava.service;
 
 import javawebinar.topjava.model.User;
+import javawebinar.topjava.to.UserTo;
 import javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.List;
@@ -17,6 +18,8 @@ public interface UserService {
 	List<User> getAll();
 
 	void update(User user) throws NotFoundException;
+
+	void update(UserTo user) throws NotFoundException;
 
 	void evictCache();
 }

@@ -3,6 +3,8 @@ package javawebinar.topjava.service;
 import javawebinar.topjava.LoggedUser;
 import javawebinar.topjava.model.User;
 import javawebinar.topjava.repository.UserRepository;
+import javawebinar.topjava.to.UserTo;
+import javawebinar.topjava.util.UserUtil;
 import javawebinar.topjava.util.exception.ExceptionUtil;
 import javawebinar.topjava.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -53,6 +56,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@CacheEvict(value = "users", allEntries = true)
 	public void update(User user) throws NotFoundException {
 		ExceptionUtil.check(repository.save(user), user.getId());
+	}
+
+	@Override
+	@CacheEvict(value = "users", allEntries = true)
+	@Transactional
+	public void update(UserTo user) throws NotFoundException {
+		User oldUser = get(user.getId());
+		UserUtil.updateFromTo(oldUser, user);
+		ExceptionUtil.check(repository.save(oldUser), user.getId());
 	}
 
 	@Override

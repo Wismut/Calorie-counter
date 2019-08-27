@@ -1,6 +1,7 @@
 package javawebinar.topjava.web;
 
 
+import javawebinar.topjava.LoggedUser;
 import javawebinar.topjava.service.UserService;
 import javawebinar.topjava.to.UserTo;
 import javawebinar.topjava.util.UserUtil;
@@ -68,5 +69,17 @@ public class RootController {
 		}
 		model.addAttribute("register", true);
 		return "profile";
+	}
+
+	@RequestMapping(value = "/profile", method = RequestMethod.POST)
+	public String updateProfile(@Valid UserTo userTo, BindingResult result, SessionStatus status, ModelMap model) {
+		if (result.hasErrors()) {
+			return "profile";
+		} else {
+			status.setComplete();
+			LoggedUser.get().updateUserTo(userTo);
+			userService.update(userTo);
+			return "redirect:meals";
+		}
 	}
 }
