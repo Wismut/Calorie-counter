@@ -1,24 +1,25 @@
 package javawebinar.topjava.repository.mock;
 
-import org.springframework.stereotype.Repository;
 import javawebinar.topjava.LoggerWrapper;
 import javawebinar.topjava.model.User;
 import javawebinar.topjava.repository.UserRepository;
+import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import java.util.List;
+
+//import javax.annotation.PostConstruct;
+//import javax.annotation.PreDestroy;
 
 @Repository
 public class MockUserRepositoryImpl implements UserRepository {
 	private static final LoggerWrapper LOG = LoggerWrapper.get(MockUserRepositoryImpl.class);
 
-	@PostConstruct
+//	@PostConstruct TODO fix it please
 	public void postConstruct() {
 		LOG.info("postConstruct");
 	}
 
-	@PreDestroy
+//	@PreDestroy
 	public void preDestroy() {
 		LOG.info("preDestroy");
 	}

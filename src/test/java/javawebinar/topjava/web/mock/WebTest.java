@@ -4,7 +4,6 @@ import javawebinar.topjava.service.UserService;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -14,6 +13,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
+
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 @ContextConfiguration({
 		"classpath:spring/spring-app.xml",
@@ -32,14 +33,11 @@ abstract public class WebTest {
 	@Autowired
 	private WebApplicationContext webApplicationContext;
 
-	@Autowired
-	private FilterChainProxy restSecurityFilterchain;
-
 	@PostConstruct
 	void postConstruct() {
 		mockMvc = MockMvcBuilders.
 				webAppContextSetup(webApplicationContext).
-				addFilters(restSecurityFilterchain).
+				apply(springSecurity()).
 				build();
 	}
 
