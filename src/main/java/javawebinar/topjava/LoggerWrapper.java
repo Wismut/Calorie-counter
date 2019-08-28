@@ -1,8 +1,9 @@
 package javawebinar.topjava;
 
+import javawebinar.topjava.util.exception.ErrorInfo;
+import javawebinar.topjava.util.exception.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import javawebinar.topjava.util.exception.NotFoundException;
 
 
 public class LoggerWrapper {
@@ -71,5 +72,15 @@ public class LoggerWrapper {
     public NotFoundException getNotFoundException(String reason) {
         logger.error("No data found");
         return new NotFoundException(reason);
+    }
+
+//    public ValidationException getValidationException(BindingResult result) {
+//        logger.error("Validation exception");
+//        return new ValidationException(result);
+//    }
+
+    public ErrorInfo getErrorInfo(CharSequence requestUrl, Exception e) {
+        logger.error("Exception at request " + requestUrl, e);
+        return new ErrorInfo(requestUrl, e);
     }
 }
