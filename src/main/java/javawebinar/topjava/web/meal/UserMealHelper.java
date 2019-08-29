@@ -4,6 +4,7 @@ import javawebinar.topjava.LoggedUser;
 import javawebinar.topjava.LoggerWrapper;
 import javawebinar.topjava.model.UserMeal;
 import javawebinar.topjava.service.UserMealService;
+import javawebinar.topjava.to.DateTimeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -50,5 +51,12 @@ public class UserMealHelper {
 	public void deleteAll() {
 		LOG.info("deleteAll");
 		service.deleteAll(LoggedUser.id());
+	}
+
+	public List<UserMeal> filterList(DateTimeFilter filter) {
+		int userId = LoggedUser.id();
+		LOG.info("filter for user {}", userId);
+		// TODO implements filtering
+		return service.getAll(userId);
 	}
 }

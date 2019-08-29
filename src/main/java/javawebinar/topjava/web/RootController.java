@@ -3,12 +3,14 @@ package javawebinar.topjava.web;
 
 import javawebinar.topjava.LoggedUser;
 import javawebinar.topjava.service.UserService;
+import javawebinar.topjava.to.DateTimeFilter;
 import javawebinar.topjava.to.UserTo;
 import javawebinar.topjava.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +31,8 @@ public class RootController {
 	}
 
 	@RequestMapping(value = "/meals", method = RequestMethod.GET)
-	public String mealList() {
+	public String mealList(Model model) {
+		model.addAttribute("filter", new DateTimeFilter());
 		return "mealList";
 	}
 
