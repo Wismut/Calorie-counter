@@ -2,6 +2,7 @@ package javawebinar.topjava.web.user;
 
 import javawebinar.topjava.model.Role;
 import javawebinar.topjava.model.User;
+import javawebinar.topjava.web.ExceptionInfoHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ajax/admin/users")
-public class AdminAjaxController {
+public class AdminAjaxController extends ExceptionInfoHandler {
 
 	@Autowired
 	private UserHelper helper;

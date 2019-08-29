@@ -88,8 +88,9 @@ function success(text) {
 
 function fail(event, jqXHR, options, jsExc) {
     closeNote();
+    var errorInfo = $.parseJSON(jqXHR.responseText);
     failedNote = noty({
-        text: 'Failed: ' + jqXHR.statusText + '<br>',
+        text: 'Failed: ' + jqXHR.statusText + '<br>' + errorInfo.cause  + '<br>' + errorInfo.detail,
         type: 'error',
         layout: 'bottomRight'
     });

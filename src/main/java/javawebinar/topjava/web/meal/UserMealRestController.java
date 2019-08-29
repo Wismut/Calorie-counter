@@ -2,6 +2,7 @@ package javawebinar.topjava.web.meal;
 
 
 import javawebinar.topjava.model.UserMeal;
+import javawebinar.topjava.web.ExceptionInfoHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/profile/meals")
-public class UserMealRestController {
+public class UserMealRestController extends ExceptionInfoHandler {
 	@Autowired
 	private UserMealHelper helper;
 

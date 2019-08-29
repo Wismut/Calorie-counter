@@ -2,6 +2,7 @@ package javawebinar.topjava.web.user;
 
 import javawebinar.topjava.LoggerWrapper;
 import javawebinar.topjava.model.User;
+import javawebinar.topjava.web.ExceptionInfoHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/admin/users")
-public class AdminUserRestController {
+public class AdminUserRestController extends ExceptionInfoHandler {
 	static final String REST_URL = "/rest/admin/users";
 	private static final LoggerWrapper LOG = LoggerWrapper.get(AdminUserRestController.class);
 

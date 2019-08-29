@@ -2,6 +2,7 @@ package javawebinar.topjava.web.meal;
 
 
 import javawebinar.topjava.model.UserMeal;
+import javawebinar.topjava.web.ExceptionInfoHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ajax/profile/meals")
-public class MealAjaxController {
+public class MealAjaxController extends ExceptionInfoHandler {
 	@Autowired
 	private UserMealHelper helper;
 
