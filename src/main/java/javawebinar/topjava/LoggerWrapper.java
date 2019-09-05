@@ -2,8 +2,10 @@ package javawebinar.topjava;
 
 import javawebinar.topjava.util.exception.ErrorInfo;
 import javawebinar.topjava.util.exception.NotFoundException;
+import javawebinar.topjava.util.exception.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.validation.BindingResult;
 
 
 public class LoggerWrapper {
@@ -74,10 +76,10 @@ public class LoggerWrapper {
         return new NotFoundException(reason);
     }
 
-//    public ValidationException getValidationException(BindingResult result) {
-//        logger.error("Validation exception");
-//        return new ValidationException(result);
-//    }
+    public ValidationException getValidationException(BindingResult result) {
+        logger.error("Validation exception");
+        return new ValidationException(result);
+    }
 
     public ErrorInfo getErrorInfo(CharSequence requestUrl, Exception e) {
         logger.error("Exception at request " + requestUrl, e);

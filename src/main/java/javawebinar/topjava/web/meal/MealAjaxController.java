@@ -6,7 +6,6 @@ import javawebinar.topjava.model.UserMeal;
 import javawebinar.topjava.to.DateTimeFilter;
 import javawebinar.topjava.to.UserMealWithExceed;
 import javawebinar.topjava.util.TimeUtil;
-import javawebinar.topjava.web.ExceptionInfoHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -26,9 +26,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static javawebinar.topjava.util.TimeUtil.*;
+
 @RestController
 @RequestMapping("/ajax/profile/meals")
-public class MealAjaxController extends ExceptionInfoHandler {
+public class MealAjaxController extends AbstractMealController {
 	@Autowired
 	private UserMealHelper helper;
 
@@ -48,14 +50,14 @@ public class MealAjaxController extends ExceptionInfoHandler {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<String> update(@Valid UserMeal meal, BindingResult result) {
+	public ResponseEntity<String> update(@Valid UserMeal meal, BindingResult result, SessionStatus status) {
 		if (result.hasErrors()) {
 			StringBuilder sb = new StringBuilder();
 			result.getFieldErrors().forEach(fe -> sb.append(fe.getField()).append(" ").append(fe.getField()));
 			return new ResponseEntity<>(sb.toString(), HttpStatus.UNPROCESSABLE_ENTITY);
 		} else {
+			status.setComplete();
 			if (meal.getId() == 0) {
-				meal.setId(null);
 				helper.create(meal);
 			} else {
 				helper.update(meal, meal.getId());
@@ -66,9 +68,8 @@ public class MealAjaxController extends ExceptionInfoHandler {
 
 	@RequestMapping(value = "/filter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<UserMealWithExceed> filterWithExceed(DateTimeFilter filter) {
-		return null;
-//		return filterWithExceed(super.getBetween(startDateTime(filter.getStartDate()), endDateTime(filter.getEndDate())),
-//				toTime(filter.getStartTime(), LocalTime.MIN), toTime(filter.getEndTime(), LocalTime.MAX));
+		return filterWithExceed(super.getBetween(startDateTime(filter.getStartDate()), endDateTime(filter.getEndDate())),
+				toTime(filter.getStartTime(), LocalTime.MIN), toTime(filter.getEndTime(), LocalTime.MAX));
 	}
 
 	public List<UserMealWithExceed> filterWithExceed(List<UserMeal> mealList, LocalTime startTime, LocalTime endTime) {
