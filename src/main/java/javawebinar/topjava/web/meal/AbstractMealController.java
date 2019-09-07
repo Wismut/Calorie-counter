@@ -7,7 +7,7 @@ import javawebinar.topjava.service.UserMealService;
 import javawebinar.topjava.web.ExceptionInfoHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public class AbstractMealController extends ExceptionInfoHandler {
@@ -34,11 +34,10 @@ public class AbstractMealController extends ExceptionInfoHandler {
         return service.getAll(userId);
     }
 
-    public List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate) {
+    public List<UserMeal> getBetween(Date startDate, Date endDate) {
         int userId = LoggedUser.id();
         LOG.info("getBetween {} and {} for User {}", startDate, endDate, userId);
-        return null; // FIXME
-//        return service.getBetween(startDate, endDate, userId);
+        return service.getBetween(startDate, endDate, userId);
     }
 
     public void deleteAll() {

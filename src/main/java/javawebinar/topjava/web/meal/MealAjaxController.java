@@ -6,7 +6,6 @@ import javawebinar.topjava.model.UserMeal;
 import javawebinar.topjava.to.DateTimeFilter;
 import javawebinar.topjava.to.UserMealWithExceed;
 import javawebinar.topjava.util.TimeUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,27 +25,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static javawebinar.topjava.util.TimeUtil.*;
-
 @RestController
 @RequestMapping("/ajax/profile/meals")
 public class MealAjaxController extends AbstractMealController {
-	@Autowired
-	private UserMealHelper helper;
-
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<UserMeal> getAll() {
-		return helper.getAll();
+		return super.getAll();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public UserMeal get(@PathVariable("id") int id) {
-		return helper.get(id);
+		return super.get(id);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable("id") int id) {
-		helper.delete(id);
+		super.delete(id);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -58,9 +52,9 @@ public class MealAjaxController extends AbstractMealController {
 		} else {
 			status.setComplete();
 			if (meal.getId() == 0) {
-				helper.create(meal);
+				super.create(meal);
 			} else {
-				helper.update(meal, meal.getId());
+				super.update(meal, meal.getId());
 			}
 			return new ResponseEntity<>(HttpStatus.OK);
 		}
@@ -68,8 +62,9 @@ public class MealAjaxController extends AbstractMealController {
 
 	@RequestMapping(value = "/filter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<UserMealWithExceed> filterWithExceed(DateTimeFilter filter) {
-		return filterWithExceed(super.getBetween(startDateTime(filter.getStartDate()), endDateTime(filter.getEndDate())),
-				toTime(filter.getStartTime(), LocalTime.MIN), toTime(filter.getEndTime(), LocalTime.MAX));
+		return null; // FIXME
+//		return filterWithExceed(super.getBetween(startDateTime(filter.getStartDate()), endDateTime(filter.getEndDate())),
+//				toTime(filter.getStartTime(), LocalTime.MIN), toTime(filter.getEndTime(), LocalTime.MAX));
 	}
 
 	public List<UserMealWithExceed> filterWithExceed(List<UserMeal> mealList, LocalTime startTime, LocalTime endTime) {

@@ -2,8 +2,6 @@ package javawebinar.topjava.web.meal;
 
 
 import javawebinar.topjava.model.UserMeal;
-import javawebinar.topjava.web.ExceptionInfoHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,40 +15,38 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/profile/meals")
-public class UserMealRestController extends ExceptionInfoHandler {
-	@Autowired
-	private UserMealHelper helper;
+public class UserMealRestController extends AbstractMealController {
 
 	public static final String REST_URL = "/rest/profile/meals";
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public UserMeal get(@PathVariable("id") int id) {
-		return helper.get(id);
+		return super.get(id);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable("id") int id) {
-		helper.delete(id);
+		super.delete(id);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<UserMeal> getAll() {
-		return helper.getAll();
+		return super.getAll();
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)
 	public void deleteAll() {
-		helper.deleteAll();
+		super.deleteAll();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void update(@RequestBody UserMeal meal, @PathVariable("id") int id) {
-		helper.update(meal, id);
+		super.update(meal, id);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<UserMeal> create(@RequestBody UserMeal meal) {
-		UserMeal userMeal = helper.create(meal);
+	public ResponseEntity<UserMeal> createWithLocation(@RequestBody UserMeal meal) {
+		UserMeal userMeal = super.create(meal);
 		URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
 				.path("/rest/profile/meals/{id}")
 				.buildAndExpand(userMeal.getId()).toUri();
@@ -62,6 +58,6 @@ public class UserMealRestController extends ExceptionInfoHandler {
 	@RequestMapping(value = "/between", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<UserMeal> getBetween(@RequestParam(value = "startDate") Date startDate,
 	                                 @RequestParam(value = "endDate") Date endDate) {
-		return helper.getBetween(startDate, endDate);
+		return super.getBetween(startDate, endDate);
 	}
 }
