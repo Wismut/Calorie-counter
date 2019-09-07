@@ -2,8 +2,6 @@ package javawebinar.topjava.web.user;
 
 import javawebinar.topjava.model.Role;
 import javawebinar.topjava.model.User;
-import javawebinar.topjava.web.ExceptionInfoHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,24 +9,20 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ajax/admin/users")
-public class AdminAjaxController extends ExceptionInfoHandler {
-
-	@Autowired
-	private UserHelper helper;
-
+public class AdminAjaxController extends AbstractUserController {
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<User> getAll() {
-		return helper.getAll();
+		return super.getAll();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public User get(@PathVariable("id") int id) {
-		return helper.get(id);
+		return super.get(id);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable("id") int id) {
-		helper.delete(id);
+		super.delete(id);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -38,9 +32,9 @@ public class AdminAjaxController extends ExceptionInfoHandler {
 	                   @RequestParam("email") String email) {
 		User user = new User(id, name, email, password, true, Role.ROLE_USER);
 		if (id == 0) {
-			helper.create(user);
+			super.create(user);
 		} else {
-			helper.update(user, id);
+			super.update(user, id);
 		}
 	}
 }

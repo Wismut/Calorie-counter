@@ -81,4 +81,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		}
 		return new LoggedUser(user);
 	}
+
+	@CacheEvict(value = "users", allEntries = true)
+	@Override
+	public void enable(int id, boolean enable) {
+		repository.enable(id, enable);
+	}
 }

@@ -22,4 +22,6 @@ public interface UserService {
 	void update(UserTo user) throws NotFoundException;
 
 	void evictCache();
+
+	void enable(int id, boolean enable);
 }

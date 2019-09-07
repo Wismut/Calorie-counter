@@ -2,8 +2,6 @@ package javawebinar.topjava.web.user;
 
 import javawebinar.topjava.LoggerWrapper;
 import javawebinar.topjava.model.User;
-import javawebinar.topjava.web.ExceptionInfoHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,46 +14,44 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/admin/users")
-public class AdminUserRestController extends ExceptionInfoHandler {
+public class AdminUserRestController extends AbstractUserController {
 	static final String REST_URL = "/rest/admin/users";
 	private static final LoggerWrapper LOG = LoggerWrapper.get(AdminUserRestController.class);
 
-	@Autowired
-	private UserHelper helper;
-
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<User> getAll() {
-		return helper.getAll();
+		return super.getAll();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public User get(@PathVariable("id") int id) {
-		return helper.get(id);
+		return super.get(id);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable("id") int id) {
-		helper.delete(id);
+		super.delete(id);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> create(@RequestBody User user) {
-		User created = helper.create(user);
+	public ResponseEntity<User> createWithLocation(@RequestBody User user) {
+		User created = super.create(user);
 		URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-				.path("/rest/admin/users/{id}")
+				.path(REST_URL + "/{id}")
 				.buildAndExpand(created.getId()).toUri();
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setLocation(uriOfNewResource);
+
 		return new ResponseEntity<>(created, httpHeaders, HttpStatus.CREATED);
 	}
 
-	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void update(@RequestBody User user) {
-		helper.update(user);
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void update(@RequestBody User user, @PathVariable("id") int id) {
+		super.update(user, id);
 	}
 
 	@RequestMapping(value = "/by", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public User getByEmail(@RequestParam("email") String email) {
-		return helper.getByEmail(email);
+		return super.getByMail(email);
 	}
 }
